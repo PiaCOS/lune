@@ -17,6 +17,21 @@
         extensions = [ "rust-src" "rust-analyzer" ];
       };
     in {
+      # Lune
+      packages.${system}.default = pkgs.rustPlatform.buildRustPackage {
+        pname = "lune";
+        version = "0.1.0";
+        src = ./.;
+
+        nativeBuildInputs = [ rustToolchain pkgs.pkg-config ];
+        buildInputs = [ pkgs.openssl ];
+
+        cargoLock = {
+          lockFile = ./Cargo.lock;
+        };
+      };
+
+      # DEV SHELL
       devShells.${system}.default = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.pkg-config ];
         buildInputs = [
