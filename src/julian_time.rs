@@ -6,7 +6,7 @@ use chrono::{DateTime, Datelike, Timelike, Utc};
 
 #[derive(Debug)]
 pub struct JulianTime {
-    pub utc: DateTime<Utc>,
+    // pub utc: DateTime<Utc>,
     pub day: f64,
     pub century: f64,
 }
@@ -15,7 +15,7 @@ impl JulianTime {
     pub fn new(dt: DateTime<Utc>) -> Self {
         let jd = Self::julian_day_number(dt);
         JulianTime {
-            utc: dt,
+            // utc: dt,
             day: jd,
             century: Self::julian_centuries(jd),
         }

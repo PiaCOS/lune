@@ -163,3 +163,36 @@ fn index_lunation(julian: &JulianTime) -> f64 {
     let avg_synodic_month = 29.530588861;
     (jd - ref_new_moon) / avg_synodic_month
 }
+
+// -------------------------------
+//              TEST
+// -------------------------------
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn julian_epoch() -> JulianTime {
+        JulianTime::new(chrono::DateTime::from_timestamp(0, 0).unwrap())
+    }
+
+    fn assert_near_eq(a: f64, b: f64) {
+        assert_eq!((a * 1e9).round() / 1e9, (b * 1e9).round() / 1e9)
+    }
+
+    #[test]
+    fn test_illuminated_fraction() {
+        [(julian_epoch(), 0.496225842)]
+            .into_iter()
+            .for_each(|(a, b)| assert_near_eq(illuminated_fraction(&a), b));
+    }
+
+    #[test]
+    fn test_moon_elongation() {}
+
+    #[test]
+    fn test_get_phase() {}
+
+    #[test]
+    fn test_phases_around() {}
+}
