@@ -7,7 +7,7 @@ Most of the computation are based on:
 
 ## Installation
 
-You can install `lune` by cloning the repository and installing the crate with `cargo`.
+You can install `lune` by cloning the repository and installing the crate with [cargo](https://rust-lang.org/tools/install/).
 
 ```
 git clone https://codeberg.org/PiaCOS/lune.git
@@ -15,7 +15,7 @@ cd lune
 cargo install --path .
 ```
 
-You may need to add [cargo](https://rust-lang.org/tools/install/) in your $PATH.
+You may need to add `cargo` to your $PATH.
 
 ## Usage:
 
