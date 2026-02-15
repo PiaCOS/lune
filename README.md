@@ -1,6 +1,6 @@
 # Lune
 
-**Lune** is a small crate used to compute the moon phases.
+**Lune** is a small offline crate used to compute the moon phases.
 
 Most of the computation are based on:
 `Jean Meeus - Astronomical Algorithm 2nd Edition 1998` chapters 7, 47 and 49.
