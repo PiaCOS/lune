@@ -1,5 +1,4 @@
-use clap::Parser;
-
+use clap::{Parser, Subcommand};
 use moon::Lune;
 
 mod astro;
@@ -7,33 +6,35 @@ mod julian_time;
 mod moon;
 mod utils;
 
-/// Let's all love Lune.
 #[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
-struct Args {
-    /// Learn about the moon.
-    #[arg(short, long, action)]
-    summary: bool,
+#[command(name = "lune")]
+#[command(version, about = "~ Let's all love Lune ~", long_about = None)]
+struct Cli {
+    #[command(subcommand)]
+    command: Option<Commands>,
+}
 
+#[derive(Subcommand, Debug)]
+enum Commands {
     /// How the moon is going.
-    #[arg(short, long, action)]
-    current: bool,
-
+    Current,
     /// Learn about the past and the future.
-    #[arg(short, long, action)]
-    phases: bool,
+    Phases,
+    /// Learn about the past.
+    Prev,
+    /// Learn about the future.
+    Next,
 }
 
 fn main() {
-    let args = Args::parse();
-
+    let cli = Cli::parse();
     let lune = Lune::new();
 
-    if args.current {
-        println!("{}", lune.get_current_phase());
-    } else if args.phases {
-        println!("{}", lune.get_phase_summary());
-    } else {
-        println!("{}", lune.get_summary());
+    match cli.command {
+        Some(Commands::Current) => println!("{}", lune.get_current_phase()),
+        Some(Commands::Phases) => println!("{}", lune.get_phase_summary()),
+        Some(Commands::Prev) => println!("{}", lune.get_prev_phase()),
+        Some(Commands::Next) => println!("{}", lune.get_next_phase()),
+        None => println!("{}", lune.get_summary()),
     }
 }

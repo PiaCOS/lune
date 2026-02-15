@@ -1,5 +1,6 @@
 use crate::astro;
 use crate::julian_time::JulianTime;
+use crate::utils::get_initials;
 
 use chrono::Utc;
 
@@ -43,14 +44,30 @@ impl Lune {
 
     pub fn get_phase_summary(&self) -> String {
         format!(
-            "{} was {} days ago - {} is in {} days",
+            "{} +{}, {} -{}",
             self.prev_phase, self.delta_prev, self.next_phase, self.delta_next
+        )
+    }
+
+    pub fn get_prev_phase(&self) -> String {
+        format!(
+            "{} +{}",
+            get_initials(&self.prev_phase.to_string()),
+            self.delta_prev
+        )
+    }
+
+    pub fn get_next_phase(&self) -> String {
+        format!(
+            "{} -{}",
+            get_initials(&self.next_phase.to_string()),
+            self.delta_next
         )
     }
 
     pub fn get_summary(&self) -> String {
         format!(
-            "Phase: {}\nIllumination: {:.1}%\n{} in {} days\n{} was {} days ago",
+            "Phase: {}\nIllumination: {:.1}%\n{} is in {} days\n{} was {} days ago",
             self.current_phase,
             self.fraction * 100.0,
             self.next_phase,
